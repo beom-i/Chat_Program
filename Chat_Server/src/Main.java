@@ -1,4 +1,3 @@
-
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -31,7 +30,7 @@ public class Main extends Application{
 			serverSocket.bind(new InetSocketAddress(IP, port)); 
 		} catch(Exception e) {
 			e.printStackTrace();
-			if(!serverSocket.isClosed()) { ////서버소켓에 문제가 발생한것이므로
+			if(!serverSocket.isClosed()) { //서버소켓에 문제가 발생한것이므로
 				stopServer(); //서버소켓이 닫혀있는 상태가 아니라면 서버를 종료한다.
 			}
 			return;
@@ -46,7 +45,7 @@ public class Main extends Application{
 					try {
 						Socket socket = serverSocket.accept(); //클라이언트 접속
 						clients.add(new Client(socket)); //클라이언트 배열에 새롭게 접속한 클라이언트 추가
-						System.out.println("[클라이언트 접속] "
+						System.out.println("[ 클라이언트 접속 ] "
 								+ socket.getRemoteSocketAddress()
 								+ ": " + Thread.currentThread().getName());
 					} catch (Exception e) {
@@ -58,12 +57,12 @@ public class Main extends Application{
 				} 
 			}
 		};
-		threadPool = Executors.newCachedThreadPool();//쓰레드 풀을 초기화 해줌
+		threadPool = Executors.newCachedThreadPool(); //쓰레드 풀을 초기화 해줌
 		threadPool.submit(thread); //쓰레드풀에 현재 클라이언트를 기다리는 쓰레드를 담는다
 		
 	}
 	
-	//서버의 작동을 중지시키는 메소드 // 자원 할당을 해제하는 메소드
+	//서버의 작동을 중지시키는 메소드, 자원 할당을 해제하는 메소드
 	public void stopServer() {
 		try {
 			//현재 작동중인 모든 소켓 닫기
@@ -96,8 +95,7 @@ public class Main extends Application{
 		textArea.setEditable(false); //문장을 출력만 하고 그 문장을 수정할 순 없다
 		textArea.setFont(new Font("나눔고딕",15)); //문장의 폰트 적용
 		root.setCenter(textArea);
-		
-		Button toggleButton = new Button("start"); //서버를 시작하는 버튼 ,ToggleButton 은 스위치 같은 느낌 시작->종료
+		Button toggleButton = new Button("Start"); //서버를 시작하는 버튼, ToggleButton 은 스위치 같은 느낌 시작->종료
 		toggleButton.setMaxWidth(Double.MAX_VALUE);
 		BorderPane.setMargin(toggleButton, new Insets(1,0,0,0));
 		root.setBottom(toggleButton);
@@ -106,7 +104,7 @@ public class Main extends Application{
 		int port = 9876;
 		
 		toggleButton.setOnAction(event -> { //togglebutton눌렀을때
-			if(toggleButton.getText().equals("start")) {
+			if(toggleButton.getText().equals("Start")) {
 				startServer(IP, port);
 				Platform.runLater(() -> { //버튼을 눌렀을 때 gui요소 나오게 하기
 					String message = String.format("[Server Start]\n",IP,port);
@@ -124,7 +122,7 @@ public class Main extends Application{
 		});
 		
 		Scene scene = new Scene(root,400,400); //화면 크기 400x400으로 만듬
-		primaryStage.setTitle("[chat server]");
+		primaryStage.setTitle("[ chat server ]");
 		primaryStage.setOnCloseRequest(event -> stopServer()); //종료버튼을 누르면 서버 종료
 		primaryStage.setScene(scene);
 		primaryStage.show(); //우리 화면에 보이기

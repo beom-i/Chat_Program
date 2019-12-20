@@ -23,7 +23,7 @@ public class Client {
 						byte[] buffer = new byte[512];
 						int length = in.read(buffer); //버퍼에 담긴 메세지의 크기
 						if(length == -1) throw new IOException(); //메세지 읽었을때 오류 발생
-						System.out.println("[메세지 수신 성공] "  //메세지 읽었을때 오류 발생X
+						System.out.println("[ 메세지 수신 성공 ] "  //메세지 읽었을때 오류 발생X
 								+ socket.getRemoteSocketAddress() //현재 접속한 클라이언트의 IP 주소 정보
 								+ ": " + Thread.currentThread().getName()); //쓰레드의 고유한 정보 이름값 출력
 						String message = new String(buffer, 0, length, "UTF-8");
@@ -33,7 +33,7 @@ public class Client {
 					}
 				} catch(Exception e) {
 					try {
-						System.out.println("[메세지 수신 오류] "
+						System.out.println("[ 메세지 수신 오류 ] "
 								+ socket.getRemoteSocketAddress()
 								+ ": " + Thread.currentThread().getName());
 						Main.clients.remove(Client.this);
@@ -58,7 +58,7 @@ public class Client {
 					out.flush();
 				} catch (Exception e) {
 					try {
-						System.out.println("[메세지 송신 오류]"
+						System.out.println("[ 메세지 송신 오류 ]"
 								+ socket.getRemoteSocketAddress()
 								+ ": " + Thread.currentThread().getName());
 						Main.clients.remove(Client.this); //오류가 발생했으면 모든 클라이언트들의 정보들의 배열에서 현재 클라이언트 정보를 없앰(접속 끊겼으므로)
