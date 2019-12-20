@@ -32,7 +32,7 @@ public class Main extends Application {
 				} catch (Exception e) {
 					if(!socket.isClosed()) { //오류 -> 소켓 열려있으면 클라이언트 종료
 						stopClient();
-						System.out.println("[º≠πˆ ¡¢º” Ω«∆–]");
+						System.out.println("[Disconnect]");
 						Platform.exit(); //프로그램도 종료
 					}
 				}
@@ -97,7 +97,7 @@ public class Main extends Application {
 		
 		TextField userName = new TextField();
 		userName.setPrefWidth(150);
-		userName.setPromptText("write name");
+		userName.setPromptText("Write Name");
 		HBox.setHgrow(userName,Priority.ALWAYS);
 		
 		TextField IPText = new TextField("127.0.0.1");
@@ -121,7 +121,7 @@ public class Main extends Application {
 			input.requestFocus();
 		});
 		
-		Button sendButton = new Button("send");
+		Button sendButton = new Button("Send");
 		sendButton.setDisable(true);
 		sendButton.setOnAction(event -> {
 			send(userName.getText() + ": " + input.getText() + "\n");
@@ -129,9 +129,9 @@ public class Main extends Application {
 			input.requestFocus();
 		});	
 		
-		Button connectionButton = new Button("connect");
+		Button connectionButton = new Button("Connect");
 		connectionButton.setOnAction(event -> {
-			if(connectionButton.getText().equals("connect")) {
+			if(connectionButton.getText().equals("Connect")) {
 				int port = 9876;
 				try {
 					port = Integer.parseInt(portText.getText());
@@ -140,7 +140,7 @@ public class Main extends Application {
 				}
 				startClient(IPText.getText(),port);
 				Platform.runLater(() -> {
-					textArea.appendText("[ chat room connect ]\n");
+					textArea.appendText("[Chat Room Connect]\n");
 				});
 				connectionButton.setText("bye");
 				input.setDisable(false);
@@ -149,9 +149,9 @@ public class Main extends Application {
 			} else {
 				stopClient();
 				Platform.runLater(() -> {
-					textArea.appendText("[chat room bye]\n");
+					textArea.appendText("[Chat Room Disconnect]\n");
 				});
-				connectionButton.setText("connect");
+				connectionButton.setText("Connect");
 				input.setDisable(true);
 				sendButton.setDisable(true);
 			}
@@ -165,7 +165,7 @@ public class Main extends Application {
 		root.setBottom(pane);
 		
 		Scene scene = new Scene(root,400,400);
-		primaryStage.setTitle("[chat client]");
+		primaryStage.setTitle("[Chat Client]");
 		primaryStage.setScene(scene);
 		primaryStage.setOnCloseRequest(event -> stopClient());
 		primaryStage.show();
