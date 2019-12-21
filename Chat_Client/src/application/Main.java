@@ -21,6 +21,7 @@ public class Main extends Application {
 	
 	Socket socket;
 	TextArea textArea; //다양한 내용을 주고 받았을 때 메세지를 출력하는 공간
+	int isAdministrator = 0;
 	
 	//클라이언트 프로그램 동작 메소드
 	public void startClient(String IP, int port) {
@@ -116,7 +117,21 @@ public class Main extends Application {
 		input.setDisable(true);
 		
 		input.setOnAction(event -> {
-			send(userName.getText() + ": " + input.getText() + "\n");
+			if(input.getText().equals("/admin on")) {
+				isAdministrator = 1;
+				input.setText("");
+				return;
+			}else if(input.getText().equals("/admin off")) {
+				isAdministrator = 0;
+				input.setText("");
+				return;
+			}
+			
+			if(isAdministrator == 1) {
+				send("[ADMIN " + userName.getText() + " ]:" + input.getText() + "\n");
+			} else {
+				send(userName.getText() + " : " + input.getText() + "\n");
+			}
 			input.setText("");
 			input.requestFocus();
 		});
@@ -124,7 +139,22 @@ public class Main extends Application {
 		Button sendButton = new Button("Send");
 		sendButton.setDisable(true);
 		sendButton.setOnAction(event -> {
-			send(userName.getText() + ": " + input.getText() + "\n");
+			if(input.getText().equals("/admin on")) {
+				isAdministrator = 1;
+				input.setText("");
+				return;
+			}else if(input.getText().equals("/admin off")) {
+				isAdministrator = 0;
+				input.setText("");
+				return;
+			}
+			
+			if(isAdministrator == 1) {
+				send("[ADMIN " + userName.getText() + " ]:" + input.getText() + "\n");
+			} else {
+				send(userName.getText() + " : " + input.getText() + "\n");
+			}
+		
 			input.setText("");
 			input.requestFocus();
 		});	
@@ -142,7 +172,7 @@ public class Main extends Application {
 				Platform.runLater(() -> {
 					textArea.appendText("[Chat Room Connect]\n");
 				});
-				connectionButton.setText("bye");
+				connectionButton.setText("Bye");
 				input.setDisable(false);
 				sendButton.setDisable(false);
 				input.requestFocus();

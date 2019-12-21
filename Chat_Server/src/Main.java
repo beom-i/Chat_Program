@@ -45,7 +45,7 @@ public class Main extends Application{
 					try {
 						Socket socket = serverSocket.accept(); //클라이언트 접속
 						clients.add(new Client(socket)); //클라이언트 배열에 새롭게 접속한 클라이언트 추가
-						System.out.println("[ 클라이언트 접속 ] "
+						System.out.println("[ Client Connect ] "
 								+ socket.getRemoteSocketAddress()
 								+ ": " + Thread.currentThread().getName());
 					} catch (Exception e) {
@@ -122,7 +122,7 @@ public class Main extends Application{
 		});
 		
 		Scene scene = new Scene(root,400,400); //화면 크기 400x400으로 만듬
-		primaryStage.setTitle("[ chat server ]");
+		primaryStage.setTitle("[ Chat Server ]");
 		primaryStage.setOnCloseRequest(event -> stopServer()); //종료버튼을 누르면 서버 종료
 		primaryStage.setScene(scene);
 		primaryStage.show(); //우리 화면에 보이기
